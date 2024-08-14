@@ -46,7 +46,7 @@
     <bpmn:endEvent id="Event_190ve02" name="dispute settled - no refund">
       <bpmn:incoming>Flow_1cvob8y</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sendTask id="Activity_0maynr7" name="Inform customer about unsuccessful claim">
+    <bpmn:sendTask id="Activity_0maynr7" name="Inform customer about rejected claim">
       <bpmn:extensionElements>
         <zeebe:ioMapping>
           <zeebe:input source="=&#34;dispute_unsuccessful&#34;" target="type" />
