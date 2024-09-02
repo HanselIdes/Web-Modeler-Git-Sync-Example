@@ -199,7 +199,7 @@
         </bpmn:serviceTask>
       </bpmn:subProcess>
       <bpmn:sequenceFlow id="Flow_16in312" sourceRef="Event_1tf9brs" targetRef="Activity_03cktkd" />
-      <bpmn:businessRuleTask id="Activity_0iv8gg2" name="Determine fraud rating confidence">
+      <bpmn:businessRuleTask id="Activity_0iv8gg2" name="Calculate fraud rating confidence">
         <bpmn:extensionElements>
           <zeebe:calledDecision decisionId="determine-fraud-rating-1dmmwcu" resultVariable="fraud_score_result" bindingType="deployment" />
           <zeebe:ioMapping>
