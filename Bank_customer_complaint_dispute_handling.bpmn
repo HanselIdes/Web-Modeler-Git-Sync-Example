@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="1110f25" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6.0" camunda:diagramRelationId="85f5b096-5a43-4668-93ef-b132f519bbbc">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="c101958" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6.0" camunda:diagramRelationId="85f5b096-5a43-4668-93ef-b132f519bbbc">
   <bpmn:collaboration id="Collaboration_1qr2ldp">
     <bpmn:participant id="Participant_06rogqo" name="Bank" processRef="Process_0ffvgea">
       <bpmn:documentation>[somelink|http://example.com]
@@ -65,7 +65,7 @@
       <bpmn:outgoing>Flow_1jy0gq5</bpmn:outgoing>
       <bpmn:businessRuleTask id="Activity_0iv8gg2" name="Calculate fraud rating confidence">
         <bpmn:extensionElements>
-          <zeebe:calledDecision resultVariable="fraud_score_result" bindingType="deployment" />
+          <zeebe:calledDecision decisionId="determine-fraud-rating-1dmmwcu" resultVariable="fraud_score_result" bindingType="deployment" />
           <zeebe:ioMapping>
             <zeebe:output source="=mean(fraud_score_result.fraud_rating_score) &#62; 0" target="isRefund" />
             <zeebe:output source="=mean(fraud_score_result.fraud_rating_confidence_score) &#62; 0" target="isHighFraudRatingConfidence" />
