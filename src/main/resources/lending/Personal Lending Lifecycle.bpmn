@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="28d462c" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="715fffd" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6">
   <bpmn:process id="Process_1uyo2lq" name="Private Lending Lifecycle" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1" name="Loan application received">
       <bpmn:outgoing>Flow_1</bpmn:outgoing>
@@ -66,7 +66,7 @@
     <bpmn:sequenceFlow id="Flow_10" name="Closed" sourceRef="Gateway_3" targetRef="Activity_LoanClosure" />
     <bpmn:callActivity id="Activity_LoanClosure" name="Mortgage/Loan Closure">
       <bpmn:extensionElements>
-        <zeebe:calledElement processId="Process_1v9bfpd" />
+        <zeebe:calledElement processId="Process_1rwfod0" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_10</bpmn:incoming>
       <bpmn:outgoing>Flow_12</bpmn:outgoing>
@@ -103,6 +103,14 @@
       <bpmn:text>Complies with Fair Debt Collection Practices Act</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_4" sourceRef="Activity_BillingCollection" targetRef="TextAnnotation_4" />
+    <bpmn:textAnnotation id="TextAnnotation_5">
+      <bpmn:text>Ensures compliance with regulatory requirements for loan closure</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_5" sourceRef="Activity_LoanClosure" targetRef="TextAnnotation_5" />
+    <bpmn:textAnnotation id="TextAnnotation_0soun7p">
+      <bpmn:text>DOCUMENTATION ONLY. This process should not be executed to avoid extremely long-running processes. Instead, implement the child processes referenced through call activities</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1hyim52" associationDirection="None" sourceRef="StartEvent_1" targetRef="TextAnnotation_0soun7p" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_Process_1uyo2lq">
     <bpmndi:BPMNPlane id="BPMNPlane_Process_1uyo2lq" bpmnElement="Process_1uyo2lq">
@@ -123,7 +131,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_CollateralManagement_di" bpmnElement="Activity_CollateralManagement">
         <dc:Bounds x="625" y="30" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_LoanServicing_di" bpmnElement="Activity_LoanServicing">
         <dc:Bounds x="775" y="30" width="100" height="80" />
@@ -136,17 +143,23 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_LoanClosure_di" bpmnElement="Activity_LoanClosure">
         <dc:Bounds x="1225" y="30" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_Securitization_di" bpmnElement="Activity_Securitization">
         <dc:Bounds x="1225" y="170" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_LoanClosed_di" bpmnElement="Event_LoanClosed">
-        <dc:Bounds x="1407" y="52" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_LoanSecuritized_di" bpmnElement="Event_LoanSecuritized">
         <dc:Bounds x="1407" y="192" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_LoanClosed_di" bpmnElement="Event_LoanClosed">
+        <dc:Bounds x="1407" y="52" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1395" y="88" width="60" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1hyim52_di" bpmnElement="Association_1hyim52">
+        <di:waypoint x="84" y="54" />
+        <di:waypoint x="116" y="-2" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
         <di:waypoint x="93" y="70" />
         <di:waypoint x="200" y="70" />
@@ -202,6 +215,10 @@
         <di:waypoint x="1325" y="210" />
         <di:waypoint x="1407" y="210" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_0soun7p_di" bpmnElement="TextAnnotation_0soun7p">
+        <dc:Bounds x="110" y="-60" width="380" height="58" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

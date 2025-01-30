@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="925e751" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="715fffd" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6">
   <bpmn:process id="Process_0wvxtg9" name="Underwriting" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1" name="Loan application received">
       <bpmn:outgoing>Flow_1</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="Task_InitialReview" />
-    <bpmn:manualTask id="Task_InitialReview" name="Review initial application">
+    <bpmn:userTask id="Task_InitialReview" name="Review initial application">
       <bpmn:incoming>Flow_1</bpmn:incoming>
       <bpmn:outgoing>Flow_2</bpmn:outgoing>
-    </bpmn:manualTask>
+    </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_InitialReview" targetRef="Task_CreditCheck" />
-    <bpmn:manualTask id="Task_CreditCheck" name="Perform credit check">
+    <bpmn:userTask id="Task_CreditCheck" name="Perform credit check">
       <bpmn:incoming>Flow_2</bpmn:incoming>
       <bpmn:outgoing>Flow_3</bpmn:outgoing>
-    </bpmn:manualTask>
+    </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_CreditCheck" targetRef="Task_VerifyIncome" />
-    <bpmn:manualTask id="Task_VerifyIncome" name="Verify income and employment">
+    <bpmn:userTask id="Task_VerifyIncome" name="Verify income and employment">
       <bpmn:incoming>Flow_3</bpmn:incoming>
       <bpmn:outgoing>Flow_4</bpmn:outgoing>
-    </bpmn:manualTask>
+    </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_VerifyIncome" targetRef="Task_PropertyAppraisal" />
-    <bpmn:manualTask id="Task_PropertyAppraisal" name="Conduct property appraisal">
+    <bpmn:userTask id="Task_PropertyAppraisal" name="Conduct property appraisal">
       <bpmn:incoming>Flow_4</bpmn:incoming>
       <bpmn:outgoing>Flow_5</bpmn:outgoing>
-    </bpmn:manualTask>
+    </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_PropertyAppraisal" targetRef="Task_CalculateDTI" />
-    <bpmn:manualTask id="Task_CalculateDTI" name="Calculate debt-to-income ratio">
+    <bpmn:userTask id="Task_CalculateDTI" name="Calculate debt-to-income ratio">
       <bpmn:incoming>Flow_5</bpmn:incoming>
       <bpmn:outgoing>Flow_6</bpmn:outgoing>
-    </bpmn:manualTask>
+    </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_CalculateDTI" targetRef="Task_LoanDecision" />
-    <bpmn:manualTask id="Task_LoanDecision" name="Make loan decision">
+    <bpmn:userTask id="Task_LoanDecision" name="Make loan decision">
       <bpmn:incoming>Flow_6</bpmn:incoming>
       <bpmn:outgoing>Flow_7</bpmn:outgoing>
-    </bpmn:manualTask>
+    </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_7" sourceRef="Task_LoanDecision" targetRef="Gateway_1" />
     <bpmn:exclusiveGateway id="Gateway_1" name="Loan approved?">
       <bpmn:incoming>Flow_7</bpmn:incoming>
@@ -41,10 +41,10 @@
       <bpmn:outgoing>Flow_9</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_8" name="Yes" sourceRef="Gateway_1" targetRef="Task_PrepareDisclosure" />
-    <bpmn:manualTask id="Task_PrepareDisclosure" name="Prepare loan terms disclosure">
+    <bpmn:userTask id="Task_PrepareDisclosure" name="Prepare loan terms disclosure">
       <bpmn:incoming>Flow_8</bpmn:incoming>
       <bpmn:outgoing>Flow_10</bpmn:outgoing>
-    </bpmn:manualTask>
+    </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_9" name="No" sourceRef="Gateway_1" targetRef="Activity_CustomerNotification" />
     <bpmn:callActivity id="Activity_CustomerNotification" name="Customer Notification">
       <bpmn:extensionElements>
