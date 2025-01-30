@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="925e751" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6">
+  <bpmn:process id="Process_1lmeph8" name="Loan Securitization" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Securitization process initiated">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_PoolMortgageLoans" name="Pool Mortgage Loans">
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_1" targetRef="Activity_PoolMortgageLoans" />
+    <bpmn:task id="Activity_PerformDueDiligence" name="Perform Due Diligence">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Activity_PoolMortgageLoans" targetRef="Activity_PerformDueDiligence" />
+    <bpmn:task id="Activity_StructureSecurities" name="Structure Securities">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Activity_PerformDueDiligence" targetRef="Activity_StructureSecurities" />
+    <bpmn:task id="Activity_CreateOfferingDocuments" name="Create Offering Documents">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Activity_StructureSecurities" targetRef="Activity_CreateOfferingDocuments" />
+    <bpmn:task id="Activity_ObtainCreditRatings" name="Obtain Credit Ratings">
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Activity_CreateOfferingDocuments" targetRef="Activity_ObtainCreditRatings" />
+    <bpmn:task id="Activity_PriceAndIssueSecurities" name="Price and Issue Securities">
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Activity_ObtainCreditRatings" targetRef="Activity_PriceAndIssueSecurities" />
+    <bpmn:callActivity id="Activity_RegulatoryComplianceReporting" name="Regulatory Compliance Reporting">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="Process_0e7tlam" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:outgoing>Flow_8</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="Activity_PriceAndIssueSecurities" targetRef="Activity_RegulatoryComplianceReporting" />
+    <bpmn:task id="Activity_PostIssuanceMonitoring" name="Post-Issuance Monitoring">
+      <bpmn:incoming>Flow_8</bpmn:incoming>
+      <bpmn:outgoing>Flow_9</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="Activity_RegulatoryComplianceReporting" targetRef="Activity_PostIssuanceMonitoring" />
+    <bpmn:endEvent id="Event_SecuritizationCompleted" name="Securitization completed">
+      <bpmn:incoming>Flow_9</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="Activity_PostIssuanceMonitoring" targetRef="Event_SecuritizationCompleted" />
+    <bpmn:textAnnotation id="TextAnnotation_1">
+      <bpmn:text>Complies with Dodd-Frank Act risk retention rules</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1" sourceRef="Activity_StructureSecurities" targetRef="TextAnnotation_1" />
+    <bpmn:textAnnotation id="TextAnnotation_2">
+      <bpmn:text>Ensures compliance with SEC disclosure requirements</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_2" sourceRef="Activity_CreateOfferingDocuments" targetRef="TextAnnotation_2" />
+    <bpmn:textAnnotation id="TextAnnotation_3">
+      <bpmn:text>Adheres to SEC Regulation AB II reporting requirements</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_3" sourceRef="Activity_RegulatoryComplianceReporting" targetRef="TextAnnotation_3" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Process_1lmeph8">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1lmeph8" bpmnElement="Process_1lmeph8">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="57" y="52" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_PoolMortgageLoans_di" bpmnElement="Activity_PoolMortgageLoans">
+        <dc:Bounds x="175" y="30" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_PerformDueDiligence_di" bpmnElement="Activity_PerformDueDiligence">
+        <dc:Bounds x="325" y="30" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_StructureSecurities_di" bpmnElement="Activity_StructureSecurities">
+        <dc:Bounds x="475" y="30" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_CreateOfferingDocuments_di" bpmnElement="Activity_CreateOfferingDocuments">
+        <dc:Bounds x="625" y="30" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_ObtainCreditRatings_di" bpmnElement="Activity_ObtainCreditRatings">
+        <dc:Bounds x="775" y="30" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_PriceAndIssueSecurities_di" bpmnElement="Activity_PriceAndIssueSecurities">
+        <dc:Bounds x="925" y="30" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_RegulatoryComplianceReporting_di" bpmnElement="Activity_RegulatoryComplianceReporting">
+        <dc:Bounds x="1075" y="30" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_PostIssuanceMonitoring_di" bpmnElement="Activity_PostIssuanceMonitoring">
+        <dc:Bounds x="1225" y="30" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_SecuritizationCompleted_di" bpmnElement="Event_SecuritizationCompleted">
+        <dc:Bounds x="1407" y="52" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <di:waypoint x="93" y="70" />
+        <di:waypoint x="175" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <di:waypoint x="275" y="70" />
+        <di:waypoint x="325" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+        <di:waypoint x="425" y="70" />
+        <di:waypoint x="475" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
+        <di:waypoint x="575" y="70" />
+        <di:waypoint x="625" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5">
+        <di:waypoint x="725" y="70" />
+        <di:waypoint x="775" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6">
+        <di:waypoint x="875" y="70" />
+        <di:waypoint x="925" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7">
+        <di:waypoint x="1025" y="70" />
+        <di:waypoint x="1075" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8">
+        <di:waypoint x="1175" y="70" />
+        <di:waypoint x="1225" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_9_di" bpmnElement="Flow_9">
+        <di:waypoint x="1325" y="70" />
+        <di:waypoint x="1407" y="70" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
