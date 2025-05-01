@@ -1,61 +1,62 @@
-# Private Lending Lifecycle - BPMN Process Framework  
+# README: Private Lending Lifecycle
 
-## Overview  
-The **Private Lending Lifecycle** is a structured BPMN framework that maps the end-to-end journey of private mortgages and consumer loans. It covers key processes such as **loan origination, underwriting, servicing, delinquency management, title processing, and securitization** while ensuring compliance with regulations like **TILA, RESPA, and FDCPA**.  
+## 1. Overview  
+**Description:** This process outlines the lifecycle of private lending, from loan application to closure or securitization.  
 
-This framework optimizes **risk management, operational efficiency, and regulatory adherence** for financial institutions handling private lending.  
+**Process Owner:** Lending Department  
 
----
+## 2. Process Flow  
+Embed your process diagram here. [Learn more](https://docs.camunda.io/docs/guides/model-your-first-process/#share-your-process)
 
-## Table of Contents  
-- [Features](#features)  
-- [Lifecycle Stages](#lifecycle-stages)  
-- [Regulatory Compliance](#regulatory-compliance)  
-- [Integration Capabilities](#integration-capabilities)  
-- [How to Use](#how-to-use)  
-- [Contributing](#contributing)  
-- [License](#license)  
+**Trigger:** Loan application received  
 
----
+**Key Steps:**  
+1. Loan application processing  
+2. Loan origination (Mortgage or Consumer Loan)  
+3. Title Management  
+4. Loan Servicing  
+5. Billing Collection & Delinquency Management  
+6. Loan Closure or Securitization  
 
-## Features  
-✅ **18 BPMN-Linked Processes** – Covers the complete private lending journey.  
-✅ **Regulatory Compliance Built-In** – Adheres to **TILA, RESPA, FDCPA, Dodd-Frank, and SEC regulations**.  
-✅ **Optimized for Efficiency** – Reduces operational friction and enhances automation.  
-✅ **Scalable & Modular** – Supports banks, credit unions, and fintech companies.  
+**Outcome:** Loan closed or securitized  
 
----
+## 3. Roles & Responsibilities  
 
-## Lifecycle Stages  
+| Role               | Responsibility                        |
+|--------------------|--------------------------------------|
+| Loan Officer      | Process loan applications            |
+| Underwriter       | Evaluate and approve loans           |
+| Servicing Agent   | Manage ongoing loan servicing        |
+| Collections Agent | Handle billing and delinquencies     |
 
-1. **Loan Origination & Processing** – Borrower application, underwriting, and approval.  
-2. **Mortgage & Loan Underwriting** – Risk assessment and regulatory checks.  
-3. **Loan Servicing** – Payment management and compliance tracking.  
-4. **Collateral & Title Management** – Ownership verification and lien processing.  
-5. **Billing & Delinquency Management** – Handling payments, collections, and late fees.  
-6. **Loan Closure & Title Processing** – Finalizing loan repayment and ownership transfer.  
-7. **Securitization** – Bundling loans into financial securities for investors.  
+## 4. Inputs & Outputs  
+**Inputs:** Loan application, customer information  
+**Outputs:** Closed loan or securitized loan  
 
----
+## 5. Systems & Tools  
+- Loan Origination System  
+- Title Management System  
+- Loan Servicing Platform  
+- Billing and Collections Software  
 
-## Regulatory Compliance  
-This framework aligns with **key U.S. federal regulations**, including:  
-- **TILA (Truth in Lending Act)** – Transparent lending disclosures.  
-- **RESPA (Real Estate Settlement Procedures Act)** – Fair settlement processes.  
-- **FDCPA (Fair Debt Collection Practices Act)** – Consumer protection in collections.  
-- **Dodd-Frank Act & SEC Regulations** – Oversight for loan securitization and risk management.  
+## 6. Exceptions & Edge Cases  
+- Loan default scenarios  
+- Early repayment  
+- Loan modification requests  
 
----
+## 7. Relevant KPIs  
+- **Cycle Time:** Time from application to loan closure  
+- **Error Rate:** Percentage of loans with processing errors  
+- **Throughput:** Number of loans processed per month  
+- **Customer Satisfaction Score (CSAT):** Based on borrower feedback  
 
-## Integration Capabilities  
-🔹 **Customer Notification** – Automated borrower updates.  
-🔹 **Payment Processing** – Secure and efficient transaction handling.  
-🔹 **Data Extraction from Documents** – AI-driven processing for title verification.  
-🔹 **Regulatory Compliance Reporting** – Ensures adherence to federal and state laws.  
+## 8. Potential Improvements  
+- **Automation:** Implement AI for initial application screening  
+- **Bottleneck Reduction:** Streamline title management process  
+- **Standardization:** Create uniform procedures across loan types  
+- **Integration:** Better integrate origination and servicing systems  
 
----
-
-## How to Use  
-1. **Deploy BPMN Diagrams** – Use within your business process management system.  
-2. **Customize for Your Needs** – Adapt workflows to meet institutional requirements.  
-3. **Integrate with Compliance Tools** – Automate regulatory reporti
+## 9. Related Documentation  
+- BPMN diagram of Private Lending Lifecycle  
+- Specific process documents for each sub-process (e.g., Mortgage Origination, Consumer Loan Origination)  
+- Regulatory compliance guidelines (TILA, RESPA, HMDA, FCRA, Dodd-Frank Act, Fair Debt Collection Practices Act)  
