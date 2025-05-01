@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="925e751" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6">
-  <bpmn:process id="Process_028mhtr" name="Securitization" isExecutable="true">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="e7bcff8" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6">
+  <bpmn:process id="Process_LoanSecuritization" name="Loan Securitization Process" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1" name="Securitization process initiated">
       <bpmn:outgoing>Flow_1</bpmn:outgoing>
     </bpmn:startEvent>
@@ -14,36 +14,82 @@
       <bpmn:incoming>Flow_2</bpmn:incoming>
       <bpmn:outgoing>Flow_3</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_DueDiligence" targetRef="CallActivity_LoanSecuritization" />
-    <bpmn:callActivity id="CallActivity_LoanSecuritization" name="Loan Securitization">
-      <bpmn:extensionElements>
-        <zeebe:calledElement processId="Process_1lmeph8" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_3</bpmn:incoming>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_DueDiligence" targetRef="Gateway_037nlgu" />
+    <bpmn:parallelGateway id="Gateway_1">
+      <bpmn:incoming>Flow_0hyrikn</bpmn:incoming>
       <bpmn:outgoing>Flow_4</bpmn:outgoing>
-    </bpmn:callActivity>
-    <bpmn:sequenceFlow id="Flow_4" sourceRef="CallActivity_LoanSecuritization" targetRef="Task_CreditRating" />
-    <bpmn:userTask id="Task_CreditRating" name="Obtain credit rating">
-      <bpmn:incoming>Flow_4</bpmn:incoming>
       <bpmn:outgoing>Flow_5</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_CreditRating" targetRef="CallActivity_RegulatoryCompliance" />
-    <bpmn:callActivity id="CallActivity_RegulatoryCompliance" name="Regulatory Compliance Reporting">
-      <bpmn:incoming>Flow_5</bpmn:incoming>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Gateway_1" targetRef="Task_StructureSecurities" />
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Gateway_1" targetRef="Task_CreditRating" />
+    <bpmn:userTask id="Task_StructureSecurities" name="Structure securities">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
       <bpmn:outgoing>Flow_6</bpmn:outgoing>
-    </bpmn:callActivity>
-    <bpmn:sequenceFlow id="Flow_6" sourceRef="CallActivity_RegulatoryCompliance" targetRef="Task_IssuanceAndSale" />
-    <bpmn:userTask id="Task_IssuanceAndSale" name="Issue and sell securities">
-      <bpmn:incoming>Flow_6</bpmn:incoming>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_CreditRating" name="Obtain credit rating">
+      <bpmn:incoming>Flow_5</bpmn:incoming>
       <bpmn:outgoing>Flow_7</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="Flow_7" sourceRef="Task_IssuanceAndSale" targetRef="EndEvent_1" />
-    <bpmn:endEvent id="EndEvent_1" name="Securitization completed">
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_StructureSecurities" targetRef="Gateway_2" />
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="Task_CreditRating" targetRef="Gateway_2" />
+    <bpmn:parallelGateway id="Gateway_2">
+      <bpmn:incoming>Flow_6</bpmn:incoming>
       <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:outgoing>Flow_8</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="Gateway_2" targetRef="Task_LegalDocumentation" />
+    <bpmn:userTask id="Task_LegalDocumentation" name="Prepare legal documentation">
+      <bpmn:incoming>Flow_8</bpmn:incoming>
+      <bpmn:outgoing>Flow_9</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="Task_LegalDocumentation" targetRef="CallActivity_RegulatoryCompliance" />
+    <bpmn:callActivity id="CallActivity_RegulatoryCompliance" name="Regulatory Compliance Reporting">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="Process_0e7tlam" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_9</bpmn:incoming>
+      <bpmn:outgoing>Flow_10</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="CallActivity_RegulatoryCompliance" targetRef="Task_Marketing" />
+    <bpmn:userTask id="Task_Marketing" name="Market securities to investors">
+      <bpmn:incoming>Flow_10</bpmn:incoming>
+      <bpmn:outgoing>Flow_11</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_11" sourceRef="Task_Marketing" targetRef="Gateway_3" />
+    <bpmn:exclusiveGateway id="Gateway_3" name="Sufficient investor interest?">
+      <bpmn:incoming>Flow_11</bpmn:incoming>
+      <bpmn:outgoing>Flow_12</bpmn:outgoing>
+      <bpmn:outgoing>Flow_13</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_12" name="Yes" sourceRef="Gateway_3" targetRef="Task_IssuanceAndSale" />
+    <bpmn:sequenceFlow id="Flow_13" name="No" sourceRef="Gateway_3" targetRef="Task_Restructure" />
+    <bpmn:userTask id="Task_IssuanceAndSale" name="Issue and sell securities">
+      <bpmn:incoming>Flow_12</bpmn:incoming>
+      <bpmn:outgoing>Flow_14</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_Restructure" name="Restructure securities">
+      <bpmn:incoming>Flow_13</bpmn:incoming>
+      <bpmn:outgoing>Flow_15</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_14" sourceRef="Task_IssuanceAndSale" targetRef="Task_PostIssuanceServicing" />
+    <bpmn:sequenceFlow id="Flow_15" sourceRef="Task_Restructure" targetRef="Gateway_037nlgu" />
+    <bpmn:userTask id="Task_PostIssuanceServicing" name="Set up post-issuance servicing">
+      <bpmn:incoming>Flow_14</bpmn:incoming>
+      <bpmn:outgoing>Flow_16</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_16" sourceRef="Task_PostIssuanceServicing" targetRef="EndEvent_1" />
+    <bpmn:endEvent id="EndEvent_1" name="Securitization completed">
+      <bpmn:incoming>Flow_16</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="Gateway_037nlgu">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:incoming>Flow_15</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hyrikn</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0hyrikn" sourceRef="Gateway_037nlgu" targetRef="Gateway_1" />
   </bpmn:process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_Process_028mhtr">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_028mhtr" bpmnElement="Process_028mhtr">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Process_LoanSecuritization">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_LoanSecuritization" bpmnElement="Process_LoanSecuritization">
       <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="57" y="52" width="36" height="36" />
       </bpmndi:BPMNShape>
@@ -53,20 +99,50 @@
       <bpmndi:BPMNShape id="Task_DueDiligence_di" bpmnElement="Task_DueDiligence">
         <dc:Bounds x="325" y="30" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="CallActivity_LoanSecuritization_di" bpmnElement="CallActivity_LoanSecuritization">
-        <dc:Bounds x="475" y="30" width="100" height="80" />
+      <bpmndi:BPMNShape id="Gateway_1_di" bpmnElement="Gateway_1">
+        <dc:Bounds x="660" y="45" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_StructureSecurities_di" bpmnElement="Task_StructureSecurities">
+        <dc:Bounds x="785" y="30" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_CreditRating_di" bpmnElement="Task_CreditRating">
-        <dc:Bounds x="625" y="30" width="100" height="80" />
+        <dc:Bounds x="785" y="170" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_2_di" bpmnElement="Gateway_2">
+        <dc:Bounds x="960" y="45" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_LegalDocumentation_di" bpmnElement="Task_LegalDocumentation">
+        <dc:Bounds x="1085" y="30" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="CallActivity_RegulatoryCompliance_di" bpmnElement="CallActivity_RegulatoryCompliance">
-        <dc:Bounds x="775" y="30" width="100" height="80" />
+        <dc:Bounds x="1235" y="30" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Marketing_di" bpmnElement="Task_Marketing">
+        <dc:Bounds x="1385" y="30" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_3_di" bpmnElement="Gateway_3" isMarkerVisible="true">
+        <dc:Bounds x="1560" y="45" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1541" y="7.5" width="87" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_IssuanceAndSale_di" bpmnElement="Task_IssuanceAndSale">
-        <dc:Bounds x="925" y="30" width="100" height="80" />
+        <dc:Bounds x="1685" y="30" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Restructure_di" bpmnElement="Task_Restructure">
+        <dc:Bounds x="1685" y="170" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_PostIssuanceServicing_di" bpmnElement="Task_PostIssuanceServicing">
+        <dc:Bounds x="1835" y="30" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
-        <dc:Bounds x="1107" y="52" width="36" height="36" />
+        <dc:Bounds x="2017" y="52" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2002" y="88" width="67" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_037nlgu_di" bpmnElement="Gateway_037nlgu" isMarkerVisible="true">
+        <dc:Bounds x="515" y="45" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
         <di:waypoint x="93" y="70" />
@@ -78,23 +154,74 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
         <di:waypoint x="425" y="70" />
-        <di:waypoint x="475" y="70" />
+        <di:waypoint x="515" y="70" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
-        <di:waypoint x="575" y="70" />
-        <di:waypoint x="625" y="70" />
+        <di:waypoint x="710" y="70" />
+        <di:waypoint x="785" y="70" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5">
-        <di:waypoint x="725" y="70" />
-        <di:waypoint x="775" y="70" />
+        <di:waypoint x="685" y="95" />
+        <di:waypoint x="685" y="210" />
+        <di:waypoint x="785" y="210" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6">
-        <di:waypoint x="875" y="70" />
-        <di:waypoint x="925" y="70" />
+        <di:waypoint x="885" y="70" />
+        <di:waypoint x="960" y="70" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7">
-        <di:waypoint x="1025" y="70" />
-        <di:waypoint x="1107" y="70" />
+        <di:waypoint x="885" y="210" />
+        <di:waypoint x="985" y="210" />
+        <di:waypoint x="985" y="95" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8">
+        <di:waypoint x="1010" y="70" />
+        <di:waypoint x="1085" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_9_di" bpmnElement="Flow_9">
+        <di:waypoint x="1185" y="70" />
+        <di:waypoint x="1235" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10">
+        <di:waypoint x="1335" y="70" />
+        <di:waypoint x="1385" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11_di" bpmnElement="Flow_11">
+        <di:waypoint x="1485" y="70" />
+        <di:waypoint x="1560" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12_di" bpmnElement="Flow_12">
+        <di:waypoint x="1610" y="70" />
+        <di:waypoint x="1685" y="70" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1639" y="45" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13_di" bpmnElement="Flow_13">
+        <di:waypoint x="1585" y="95" />
+        <di:waypoint x="1585" y="210" />
+        <di:waypoint x="1685" y="210" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1593" y="143" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14_di" bpmnElement="Flow_14">
+        <di:waypoint x="1785" y="70" />
+        <di:waypoint x="1835" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15_di" bpmnElement="Flow_15">
+        <di:waypoint x="1735" y="250" />
+        <di:waypoint x="1735" y="280" />
+        <di:waypoint x="540" y="280" />
+        <di:waypoint x="540" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16_di" bpmnElement="Flow_16">
+        <di:waypoint x="1935" y="70" />
+        <di:waypoint x="2017" y="70" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hyrikn_di" bpmnElement="Flow_0hyrikn">
+        <di:waypoint x="565" y="70" />
+        <di:waypoint x="660" y="70" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
